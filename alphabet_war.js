@@ -14,16 +14,17 @@ const rightLetters = {
 
 const filterAlgorithm = (vector) => {
     return (filter) => {
-        const map = vector.split('').filter(e => Object.keys(filter).includes(e)).map(e => {
-            return Object.values(filter)[keys.indexOf(e)]
-        })
-        return map.length > 0 ? map.reduce((t, n) => t + n) : map
+        const keys = Object.keys(filter)
+        const map = vector.split('').filter(e => keys.includes(e)).map(e =>
+            keys[Object.keys(filter).indexOf(e)]
+        )
+        return map.length > 0 ? map.reduce((t, n) => t + n) : 0
     }
 }
 
 const alphabetWar = (str) => {
     const filter = filterAlgorithm(`${str}`)
-    return (filter(leftLetters).length === 0 && filter(rightLetters) === 0) || (filter(rightLetters) === filter(leftLetters)) ? 
+    return (filter(rightLetters) === filter(leftLetters)) ? 
     "Let's fight again!" : filter(rightLetters) > filter(leftLetters) ? 'Right side wins!' : 'Left side wins!'
 }
 
