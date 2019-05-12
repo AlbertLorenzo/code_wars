@@ -3,6 +3,6 @@ const vector = Array.from({length: 50}, (v, i) => i + 1) // Rango 1-50
 
 const fizzBuzzFizzbuz = (vec) => vec.map((n, i, v) => {
     return n % 3 === 0 ? n % 5 === 0 ? `${n} : fizzBuzz` : `${n} : fizz` : n % 5 === 0 ? `${n} : buzz` : undefined
-} ).filter(e => e)
+}).filter(e => e)
 
 console.log(fizzBuzzFizzbuz(vector))
