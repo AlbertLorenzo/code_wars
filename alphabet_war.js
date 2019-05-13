@@ -13,13 +13,11 @@ const rightLetters = {
 }
 
 const filterAlgorithm = (vector) => {
-    return (filter) => {
         return (filter) => {
             const keys = Object.keys(filter)
             const newMap = vector.split('').map((e, i, v) => Object.values(filter)[keys.indexOf(e)]).filter(e => e)
             return newMap.length > 0 ? newMap.reduce((t, n) => t + n) : 0
         }
-    }
 }
 
 const alphabetWar = (str) => {
