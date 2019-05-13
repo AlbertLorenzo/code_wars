@@ -14,11 +14,11 @@ const rightLetters = {
 
 const filterAlgorithm = (vector) => {
     return (filter) => {
-        const keys = Object.keys(filter)
-        const map = vector.split('').filter(e => keys.includes(e)).map(e =>
-            keys[Object.keys(filter).indexOf(e)]
-        )
-        return map.length > 0 ? map.reduce((t, n) => t + n) : 0
+        return (filter) => {
+            const keys = Object.keys(filter)
+            const newMap = vector.split('').map((e, i, v) => Object.values(filter)[keys.indexOf(e)]).filter(e => e)
+            return newMap.length > 0 ? newMap.reduce((t, n) => t + n) : 0
+        }
     }
 }
 
