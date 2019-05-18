@@ -1,11 +1,7 @@
 const multiplyMatrix = (a, b) => {
-    const product = a.map((e, i, v) => Array.from({length: b[0].length}).fill(0))
-    return product.map((vector, i) =>
-        vector.map((value, j) =>
-            a[i].reduce((total, n, k) => total + (n * b[k][j]), 0
-            )))
+    const product = a.map((a) => Array.from({ length: b[0].length }).fill(0))
+    return product.map((vector, i) => vector.map((value, j) => a[i].reduce((t, n, k) => t + (n * b[k][j]), 0)))
 }
-
 const m1 = [
     [1, 2, 3],
     [3, 4, 5],

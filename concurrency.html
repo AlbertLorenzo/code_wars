@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="block">
+        Resultados:
+    </p>
+    <script>
+        function insertHtml(num) {
+            document.getElementById('block').innerHTML += `<br> ${num}`
+        }
+
+        function recursiveCall(t, num) {
+            if (t < 100000) {
+                insertHtml(++num)
+                // Se ejecutará recursiveCall fuera del hilo de JS a través de una API externa (setTimeOut)
+                // Haciendo que se pueda ejecutar el programa de forma síncrona 
+                // mientras la api externa resuelve la llamada a recursiveCall()
+                setTimeout(() => {
+                    recursiveCall(++t, ++num)
+                }, 1000)
+            } else {
+                return 0
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            recursiveCall(0, 150) // Esto va solísimo, a su rollo
+            console.log('Finalizando...')
+            for (let i = 0; i < 1000; i++) {
+                console.log(i)
+            }
+            console.log('esto sí que es el final del programa')
+        })
+    </script>
+</body>
+
+</html>
