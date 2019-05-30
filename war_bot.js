@@ -20,8 +20,7 @@ Array.prototype.toFlat = function() {
 }
 
 Array.prototype.strength = function (country) {
-    const flatMap = this.toFlat()
-    return flatMap.filter(e => e == country).length
+    return this.toFlat().filter(e => e == country).length
 }
 
 Array.prototype.checkRecurrency = function() {
@@ -32,8 +31,8 @@ Array.prototype.attack = function (attacker, defender) {
     const attackerStr = this.strength(attacker)
     const defenderStr = this.strength(defender)
 
-    const nRndAttacker = Math.random() * (attackerStr - 0) + 0
-    const nRndDefender = Math.random() * (defenderStr - 0) + 0
+    const nRndAttacker = Math.random() * attackerStr
+    const nRndDefender = Math.random() * defenderStr
 
     return nRndAttacker > nRndDefender ? true : false
 }
@@ -42,18 +41,17 @@ Map.prototype.doWar = function () {
     let flatMap = this.map.toFlat()
     let WarHasEnded = flatMap.checkRecurrency()
     do {
-        const nCountry = Math.floor(Math.random() * (this.map.length - 0) + 0)
-        const countryName = Math.floor(Math.random() * (this.map[nCountry].length - 0) + 0)
+        const nCountry = Math.floor(Math.random() * this.map.length)
+        const countryName = Math.floor(Math.random() * this.map[nCountry].length)
+        const currentCountry = this.map[nCountry][countryName]
 
-        const actualCountry = this.map[nCountry][countryName]
-
-        switch (Math.floor(Math.random() * (3 - 0) + 0)) {
+        switch (Math.floor(Math.random() * 3)) {
             case 0:
                 if (this.map[nCountry]) {
                     if (this.map[nCountry][countryName - 1]) {
                         // Left
-                        if (this.map.attack(actualCountry, this.map[nCountry][countryName - 1]) && this.map[nCountry][countryName - 1] != actualCountry) {
-                            this.map[nCountry][countryName - 1] = actualCountry
+                        if (this.map.attack(currentCountry, this.map[nCountry][countryName - 1]) && this.map[nCountry][countryName - 1] != currentCountry) {
+                            this.map[nCountry][countryName - 1] = currentCountry
                         }
                     }
                 } else {
@@ -64,8 +62,8 @@ Map.prototype.doWar = function () {
                 if (this.map[nCountry]) {
                     if (this.map[nCountry][countryName + 1]) {
                         // Right
-                        if (this.map.attack(actualCountry, this.map[nCountry][countryName + 1]) && this.map[nCountry][countryName + 1] != actualCountry) {
-                            this.map[nCountry][countryName + 1] = actualCountry
+                        if (this.map.attack(currentCountry, this.map[nCountry][countryName + 1]) && this.map[nCountry][countryName + 1] != currentCountry) {
+                            this.map[nCountry][countryName + 1] = currentCountry
                         }
                     }
                 } else {
@@ -76,8 +74,8 @@ Map.prototype.doWar = function () {
                 if (this.map[nCountry - 1]) {
                     if (this.map[nCountry - 1][countryName]) {
                         // Top
-                        if (this.map.attack(actualCountry, this.map[nCountry - 1][countryName]) && this.map[nCountry - 1][countryName] != actualCountry) {
-                            this.map[nCountry - 1][countryName] = actualCountry
+                        if (this.map.attack(currentCountry, this.map[nCountry - 1][countryName]) && this.map[nCountry - 1][countryName] != currentCountry) {
+                            this.map[nCountry - 1][countryName] = currentCountry
                         }
                     }
                 } else {
@@ -88,8 +86,8 @@ Map.prototype.doWar = function () {
                 if (this.map[nCountry + 1]) {
                     if (this.map[nCountry + 1][countryName]) {
                         // Bottom
-                        if (this.map.attack(actualCountry, this.map[nCountry + 1][countryName]) && this.map[nCountry + 1][countryName] != actualCountry) {
-                            this.map[nCountry + 1][countryName] = actualCountry
+                        if (this.map.attack(currentCountry, this.map[nCountry + 1][countryName]) && this.map[nCountry + 1][countryName] != currentCountry) {
+                            this.map[nCountry + 1][countryName] = currentCountry
                         }
                     }
                 } else {
@@ -103,9 +101,9 @@ Map.prototype.doWar = function () {
         WarHasEnded = flatMap.checkRecurrency()
     } while (!WarHasEnded)
 
+    console.log(flatMap)
     return this.map[0][0]
 }
 
 const map = Map.of(espanya)
-
 console.log(`${map.doWar()} ha ganado la guerra.`)
