@@ -19,14 +19,18 @@ Array.prototype.toFlat = function() {
     return [].concat(...this)
 }
 
-Array.prototype.Strength = function (country) {
+Array.prototype.strength = function (country) {
     const flatMap = this.toFlat()
     return flatMap.filter(e => e == country).length
 }
 
+Array.prototype.checkRecurrency = function() {
+    return this.every(e => e === this[0])
+}
+
 Array.prototype.attack = function (attacker, defender) {
-    const attackerStr = this.Strength(attacker)
-    const defenderStr = this.Strength(defender)
+    const attackerStr = this.strength(attacker)
+    const defenderStr = this.strength(defender)
 
     const nRndAttacker = Math.random() * (attackerStr - 0) + 0
     const nRndDefender = Math.random() * (defenderStr - 0) + 0
@@ -36,7 +40,7 @@ Array.prototype.attack = function (attacker, defender) {
 
 Map.prototype.doWar = function () {
     let flatMap = this.map.toFlat()
-    let WarHasEnded = flatMap.every(e => e === this.map[0])
+    let WarHasEnded = flatMap.checkRecurrency()
     do {
         const nCountry = Math.floor(Math.random() * (this.map.length - 0) + 0)
         const countryName = Math.floor(Math.random() * (this.map[nCountry].length - 0) + 0)
@@ -96,7 +100,7 @@ Map.prototype.doWar = function () {
                 break
         }
         flatMap = this.map.toFlat()
-        WarHasEnded = flatMap.every(e => e === flatMap[0])
+        WarHasEnded = flatMap.checkRecurrency()
     } while (!WarHasEnded)
 
     return this.map[0][0]
