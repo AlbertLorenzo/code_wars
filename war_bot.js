@@ -40,6 +40,7 @@ Array.prototype.attack = function (attacker, defender) {
 Map.prototype.doWar = function () {
     let flatMap = this.map.toFlat()
     let WarHasEnded = flatMap.checkRecurrency()
+    let n = 0
     do {
         const nCountry = Math.floor(Math.random() * this.map.length)
         const countryName = Math.floor(Math.random() * this.map[nCountry].length)
@@ -97,13 +98,16 @@ Map.prototype.doWar = function () {
             default:
                 break
         }
+        n++
         flatMap = this.map.toFlat()
         WarHasEnded = flatMap.checkRecurrency()
+        console.log('Turno para: ' + currentCountry)
+        console.log(this.map)
+        console.log('Generación: ' + n)
     } while (!WarHasEnded)
 
-    console.log(flatMap)
-    return this.map[0][0]
+    return flatMap[0]
 }
 
 const map = Map.of(espanya)
-console.log(`${map.doWar()} ha ganado la guerra.`)
+console.log(`${map.doWar()} ha ganado la guerra.`)   
