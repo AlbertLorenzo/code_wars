@@ -12,8 +12,6 @@ Array.prototype.FloydWarshall = function() {
         }
     }
 
-    
-
     return data = {
         "Path matrix": path,
         "sortest path matrix": this
