@@ -19,10 +19,10 @@ Array.prototype.FloydWarshall = function() {
 }
 
 const m = [
-    [0, 5, 999, 999],
+    [0, 5, Infinity, Infinity],
     [50, 0, 15, 5],
-    [30, 999, 0, 15],
-    [15, 999, 5, 0]
+    [30, Infinity, 0, 15],
+    [15, Infinity, 5, 0]
 ]
 
 console.log(m.FloydWarshall())
