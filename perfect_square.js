@@ -1,3 +1,4 @@
-const findNextSquare = (num) => Number.isInteger(Math.sqrt(num)) ? Number.isInteger(Math.sqrt(++num)) ? num : findNextSquare(++num) : -1
-
-console.log(findNextSquare(121))
+Number.prototype.nextSquare = function() {
+    const r = Math.sqrt(this)
+    return r % 1 ? -1 : ++r * r
+}
